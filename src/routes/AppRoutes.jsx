@@ -5,6 +5,7 @@ import CruiseDetails from "../pages/CruiseDetails";
 import FlightListingPage from "../pages/FlightListingPage";
 import CruiseIndexPage from "../pages/CruiseIndexPage";
 import ContactUsPage from "../pages/ContactUsPage";
+import FlightDetailsPage from "../pages/FlightDetailsPage";
 
 export default function AppRoutes() {
   return (
@@ -15,6 +16,7 @@ export default function AppRoutes() {
       <Route path="/contact-us" element={<ContactUsPage />} />
       <Route path="/cruise/details" element={<CruiseDetails />} />
       <Route path="/flight/listing" element={<FlightListingPage />} />
+      <Route path="/flight/details" element={<FlightDetailsPage />} />
     </Routes>
   );
 }

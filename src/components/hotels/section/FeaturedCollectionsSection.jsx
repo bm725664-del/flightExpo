@@ -19,6 +19,7 @@ export default function FeaturedCollectionsSection() {
             country={destination.country}
             title={destination.title}
             description={destination.description}
+            // href={"/hotel/details"}
           />
         ))}
       </div>

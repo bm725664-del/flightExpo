@@ -19,6 +19,7 @@ import {
   Minus,
 } from "lucide-react";
 import { Fragment } from "react";
+import { useNavigate } from "react-router-dom";
 
 const tripOptions = [
   { label: "Round Trip", value: "round-trip" },
@@ -31,7 +32,7 @@ const cabinOptions = ["Economy", "Premium Economy", "Business", "First Class"];
 export default function ModernFlightSearch() {
   const [tripType, setTripType] = useState("round-trip");
   const [loading, setLoading] = useState(false);
-
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     from: "London - LHR",
     to: "",
@@ -82,7 +83,7 @@ export default function ModernFlightSearch() {
     try {
       setLoading(true);
       await new Promise((resolve) => setTimeout(resolve, 1500));
-      console.log("Search Payload:", { tripType, formData, passengers });
+      navigate("/flight/listing");
     } finally {
       setLoading(false);
     }
@@ -150,15 +151,15 @@ export default function ModernFlightSearch() {
                   />
                 </div>
               </div>
-
-              {/* Swap Button (Desktop) */}
-              <button
-                type="button"
-                onClick={handleSwapLocations}
-                className="hidden xl:flex absolute -right-6 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-white border border-gray-200 shadow-lg items-center justify-center hover:scale-110 hover:border-blue-200 transition-all text-blue-600"
-              >
-                <ArrowLeftRight size={18} />
-              </button>
+              {tripType !== "multi-city" && (
+                <button
+                  type="button"
+                  onClick={handleSwapLocations}
+                  className="hidden xl:flex absolute -right-6 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-white border border-gray-200 shadow-lg items-center justify-center hover:scale-110 hover:border-blue-200 transition-all text-blue-600"
+                >
+                  <ArrowLeftRight size={18} />
+                </button>
+              )}
             </div>
 
             {/* TO */}
@@ -210,7 +211,7 @@ export default function ModernFlightSearch() {
               </div>
 
               <AnimatePresence mode="popLayout">
-                {tripType !== "one-way" && (
+                {tripType !== "one-way" && tripType !== "multi-city" && (
                   <motion.div
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
@@ -280,139 +281,162 @@ export default function ModernFlightSearch() {
                       leaveFrom="opacity-100 translate-y-0"
                       leaveTo="opacity-0 translate-y-1"
                     >
-                      <Popover.Panel className="absolute right-0 z-50 mt-2 w-80 bg-white rounded-2xl shadow-2xl border border-gray-100 p-6">
-                        {/* Passenger Controls */}
-                        <div className="space-y-4 mb-6">
-                          {[
-                            {
-                              type: "adults",
-                              label: "Adults",
-                              desc: "12+ years",
-                            },
-                            {
-                              type: "children",
-                              label: "Children",
-                              desc: "2-11 years",
-                            },
-                            {
-                              type: "infants",
-                              label: "Infants",
-                              desc: "Under 2 years",
-                            },
-                          ].map((passenger) => (
-                            <div
-                              key={passenger.type}
-                              className="flex items-center justify-between"
-                            >
-                              <div>
-                                <p className="font-semibold text-gray-900">
-                                  {passenger.label}
-                                </p>
-                                <p className="text-xs text-gray-500">
-                                  {passenger.desc}
-                                </p>
-                              </div>
-                              <div className="flex items-center gap-3">
-                                <button
-                                  type="button"
-                                  onClick={() =>
-                                    handlePassengerChange(
-                                      passenger.type,
-                                      "decrement",
-                                    )
-                                  }
-                                  className="w-8 h-8 rounded-full border border-gray-200 flex items-center justify-center text-gray-600 hover:bg-gray-50 disabled:opacity-50"
-                                  disabled={
-                                    passenger.type === "adults"
-                                      ? passengers.adults <= 1
-                                      : passengers[passenger.type] === 0
-                                  }
-                                >
-                                  <Minus size={14} />
-                                </button>
-                                <span className="w-4 text-center font-semibold">
-                                  {passengers[passenger.type]}
-                                </span>
-                                <button
-                                  type="button"
-                                  onClick={() =>
-                                    handlePassengerChange(
-                                      passenger.type,
-                                      "increment",
-                                    )
-                                  }
-                                  className="w-8 h-8 rounded-full border border-gray-200 flex items-center justify-center text-gray-600 hover:bg-gray-50"
-                                >
-                                  <Plus size={14} />
-                                </button>
-                              </div>
+                      <Popover.Panel className="absolute right-0 z-999 mt-3 w-[600px] rounded-3xl border border-gray-200 bg-white shadow-[0_20px_60px_rgba(0,0,0,0.12)]">
+                        <div className="flex">
+                          {/* Passenger Section */}
+                          <div className="flex-1 p-5">
+                            <div className="mb-5">
+                              <h3 className="text-base font-semibold text-gray-900">
+                                Passengers
+                              </h3>
+                              <p className="text-sm text-gray-500">
+                                Select traveler count
+                              </p>
                             </div>
-                          ))}
-                        </div>
 
-                        {/* Cabin Selection */}
-                        <div className="border-t border-gray-100 pt-4">
-                          <p className="text-sm font-semibold text-gray-900 mb-3">
-                            Cabin Class
-                          </p>
-                          <Listbox
-                            value={formData.cabin}
-                            onChange={(val) => handleInputChange("cabin", val)}
-                          >
-                            <div className="relative">
-                              <Listbox.Button className="w-full relative border border-gray-200 rounded-xl p-3 text-left sm:text-sm font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500">
-                                <span className="block truncate">
-                                  {formData.cabin}
-                                </span>
-                                <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
-                                  <ChevronDown
-                                    className="h-4 w-4 text-gray-400"
-                                    aria-hidden="true"
-                                  />
-                                </span>
-                              </Listbox.Button>
-                              <Transition
-                                as={Fragment}
-                                leave="transition ease-in duration-100"
-                                leaveFrom="opacity-100"
-                                leaveTo="opacity-0"
-                              >
-                                <Listbox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-xl bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm z-50">
-                                  {cabinOptions.map((cabin, cabinIdx) => (
-                                    <Listbox.Option
-                                      key={cabinIdx}
-                                      className={({ active }) =>
-                                        `relative cursor-pointer select-none py-2 pl-10 pr-4 ${
-                                          active
-                                            ? "bg-blue-50 text-blue-900"
-                                            : "text-gray-900"
-                                        }`
+                            <div className="space-y-4">
+                              {[
+                                {
+                                  type: "adults",
+                                  label: "Adults",
+                                  desc: "12+ years",
+                                },
+                                {
+                                  type: "children",
+                                  label: "Children",
+                                  desc: "2-11 years",
+                                },
+                                {
+                                  type: "infants",
+                                  label: "Infants",
+                                  desc: "Under 2 years",
+                                },
+                              ].map((passenger) => (
+                                <div
+                                  key={passenger.type}
+                                  className="flex items-center justify-between rounded-2xl border border-gray-100 bg-gray-50 px-4 py-3"
+                                >
+                                  <div>
+                                    <p className="font-semibold text-gray-900">
+                                      {passenger.label}
+                                    </p>
+                                    <p className="text-xs text-gray-500">
+                                      {passenger.desc}
+                                    </p>
+                                  </div>
+
+                                  <div className="flex items-center gap-3">
+                                    <button
+                                      type="button"
+                                      onClick={() =>
+                                        handlePassengerChange(
+                                          passenger.type,
+                                          "decrement",
+                                        )
                                       }
-                                      value={cabin}
+                                      className="flex h-9 w-9 items-center justify-center rounded-full border border-gray-200 bg-white text-gray-700 transition hover:bg-gray-100 disabled:opacity-40"
+                                      disabled={
+                                        passenger.type === "adults"
+                                          ? passengers.adults <= 1
+                                          : passengers[passenger.type] === 0
+                                      }
                                     >
-                                      {({ selected }) => (
-                                        <>
-                                          <span
-                                            className={`block truncate ${selected ? "font-medium" : "font-normal"}`}
-                                          >
-                                            {cabin}
-                                          </span>
-                                          {selected ? (
-                                            <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-blue-600">
-                                              <Check
-                                                className="h-4 w-4"
-                                                aria-hidden="true"
-                                              />
-                                            </span>
-                                          ) : null}
-                                        </>
-                                      )}
-                                    </Listbox.Option>
-                                  ))}
-                                </Listbox.Options>
-                              </Transition>
+                                      <Minus size={15} />
+                                    </button>
+
+                                    <span className="min-w-[20px] text-center text-base font-semibold text-gray-900">
+                                      {passengers[passenger.type]}
+                                    </span>
+
+                                    <button
+                                      type="button"
+                                      onClick={() =>
+                                        handlePassengerChange(
+                                          passenger.type,
+                                          "increment",
+                                        )
+                                      }
+                                      className="flex h-9 w-9 items-center justify-center rounded-full bg-primary text-white transition hover:scale-105"
+                                    >
+                                      <Plus size={15} />
+                                    </button>
+                                  </div>
+                                </div>
+                              ))}
                             </div>
-                          </Listbox>
+                          </div>
+
+                          {/* Cabin Section */}
+                          <div className="flex-1 border-t border-gray-100 bg-gray-50 p-5">
+                            <div className="mb-4">
+                              <h3 className="text-base font-semibold text-gray-900">
+                                Cabin Class
+                              </h3>
+                              <p className="text-sm text-gray-500">
+                                Choose your preferred cabin
+                              </p>
+                            </div>
+
+                            <Listbox
+                              value={formData.cabin}
+                              onChange={(val) =>
+                                handleInputChange("cabin", val)
+                              }
+                            >
+                              <div className="relative">
+                                <Listbox.Button className="relative w-full rounded-2xl border border-gray-200 bg-white px-4 py-3 text-left text-sm font-medium text-gray-900 shadow-sm focus:outline-none focus:ring-2 focus:ring-black">
+                                  <span className="block truncate">
+                                    {formData.cabin}
+                                  </span>
+
+                                  <span className="pointer-events-none absolute inset-y-0 right-4 flex items-center">
+                                    <ChevronDown className="h-4 w-4 text-gray-400" />
+                                  </span>
+                                </Listbox.Button>
+
+                                <Transition
+                                  as={Fragment}
+                                  leave="transition ease-in duration-100"
+                                  leaveFrom="opacity-100"
+                                  leaveTo="opacity-0"
+                                >
+                                  <Listbox.Options className="absolute z-50 mt-2 max-h-60 w-full overflow-auto rounded-2xl border border-gray-100 bg-white py-2 shadow-2xl focus:outline-none">
+                                    {cabinOptions.map((cabin, cabinIdx) => (
+                                      <Listbox.Option
+                                        key={cabinIdx}
+                                        className={({ active }) =>
+                                          `relative cursor-pointer select-none px-4 py-3 transition ${
+                                            active
+                                              ? "bg-primary text-white"
+                                              : "text-gray-900"
+                                          }`
+                                        }
+                                        value={cabin}
+                                      >
+                                        {({ selected }) => (
+                                          <div className="flex items-center justify-between">
+                                            <span
+                                              className={`truncate ${
+                                                selected
+                                                  ? "font-semibold"
+                                                  : "font-medium"
+                                              }`}
+                                            >
+                                              {cabin}
+                                            </span>
+
+                                            {selected && (
+                                              <Check className="h-4 w-4" />
+                                            )}
+                                          </div>
+                                        )}
+                                      </Listbox.Option>
+                                    ))}
+                                  </Listbox.Options>
+                                </Transition>
+                              </div>
+                            </Listbox>
+                          </div>
                         </div>
                       </Popover.Panel>
                     </Transition>
@@ -421,6 +445,83 @@ export default function ModernFlightSearch() {
               </Popover>
             </div>
           </div>
+
+          {/* Multi City Form */}
+          {tripType == "multi-city" && (
+            <div className="flex flex-col xl:flex-row relative ">
+              {/* FROM */}
+              <div className="flex-1 basis-1/4 border-b xl:border-b-0 xl:border-r border-gray-100 relative p-5 sm:p-6 hover:bg-gray-50 transition-colors">
+                <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 rounded-2xl bg-blue-50 flex items-center justify-center shrink-0">
+                    <PlaneTakeoff size={22} className="text-blue-600" />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-[10px] uppercase tracking-[0.2em] font-bold text-gray-400 mb-2">
+                      Returning From
+                    </p>
+                    <input
+                      type="text"
+                      value={formData.from}
+                      onChange={(e) =>
+                        handleInputChange("from", e.target.value)
+                      }
+                      placeholder="City or Airport"
+                      className="w-full bg-transparent text-lg sm:text-xl font-bold text-gray-900 placeholder:text-gray-300 outline-none truncate"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* TO */}
+              <div className="flex-1 basis-1/4 border-t border-b xl:border-b-0 xl:border-r border-gray-100 p-5 sm:p-6 hover:bg-gray-50 transition-colors">
+                <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 rounded-2xl bg-blue-50 flex items-center justify-center shrink-0">
+                    <PlaneLanding size={22} className="text-blue-600" />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-[10px] uppercase tracking-[0.2em] font-bold text-gray-400 mb-2">
+                      Returning To
+                    </p>
+                    <input
+                      type="text"
+                      value={formData.to}
+                      onChange={(e) => handleInputChange("to", e.target.value)}
+                      placeholder="Destination"
+                      className="w-full bg-transparent text-lg sm:text-xl font-bold text-gray-900 placeholder:text-gray-300 outline-none truncate"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* DATES */}
+              <div className="flex-1 basis-1/3 flex flex-col sm:flex-row border-b xl:border-b-0 xl:border-r border-gray-100">
+                <div className="flex-1 basis-1/2 border-b sm:border-b-0 sm:border-r border-gray-100 p-5 sm:p-6 hover:bg-gray-50 transition-colors">
+                  <div className="flex items-start gap-4">
+                    <div className="w-12 h-12 rounded-2xl bg-blue-50 flex items-center justify-center shrink-0">
+                      <CalendarDays size={22} className="text-blue-600" />
+                    </div>
+                    <div className="flex-1">
+                      <p className="text-[10px] uppercase tracking-[0.2em] font-bold text-gray-400 mb-2">
+                        Return Date
+                      </p>
+                      <Calendar
+                        value={formData.departureDate}
+                        onChange={(e) =>
+                          handleInputChange("departureDate", e.value)
+                        }
+                        dateFormat="dd/mm/yy"
+                        placeholder="Select departure"
+                        showIcon={false}
+                        inline={false}
+                        className="w-full date-picker-custom"
+                        inputClassName="bg-transparent text-sm sm:text-base font-semibold text-gray-900 outline-none cursor-pointer w-full"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
 
           {/* Mobile Swap */}
           <div className="xl:hidden flex justify-center py-3 border-t border-gray-100 relative z-10 bg-white">
@@ -456,8 +557,7 @@ export default function ModernFlightSearch() {
                 </>
               ) : (
                 <>
-                  <Search size={20} />
-                  Search Flights
+                  <Search size={20} /> Search Flights
                 </>
               )}
             </button>

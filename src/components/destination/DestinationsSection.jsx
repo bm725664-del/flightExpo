@@ -18,7 +18,7 @@ export default function DestinationsSection({
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
         {cardjson.map((destination) => (
           <DestinationCard
-            href={`/flight/listing`}
+            href={`/flight/details`}
             key={destination.id}
             cardImage={destination.image}
             country={destination.country}
