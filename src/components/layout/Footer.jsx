@@ -5,7 +5,7 @@ export default function Footer() {
         {/* Brand */}
         <div className="flex flex-col gap-stack-md">
           <div className="font-display-xl text-h3 text-primary">
-            LUXE TRAVEL
+            Flight Expo
           </div>
 
           <p className="text-on-surface-variant text-label-sm max-w-xs leading-relaxed">
@@ -145,7 +145,7 @@ export default function Footer() {
       {/* Bottom Footer */}
       <div className="mt-stack-xl border-t border-outline-variant/10 pt-stack-md px-margin-desktop max-w-container-max mx-auto flex flex-col md:flex-row justify-between items-center gap-stack-sm">
         <p className="text-on-surface-variant text-label-sm">
-          © 2024 Luxe Travel Global. All rights reserved.
+          © 2026 Flight Expo. All rights reserved.
         </p>
 
         <div className="flex gap-stack-md">

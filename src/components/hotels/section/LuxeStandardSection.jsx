@@ -7,7 +7,7 @@ const features = [
   {
     title: "Personal Guest Relations",
     description:
-      "A dedicated Luxe Travel manager for every booking to handle custom requests.",
+      "A dedicated Flight Expo manager for every booking to handle custom requests.",
   },
   {
     title: "Verified Experience",

@@ -53,7 +53,7 @@ export default function HotelSection() {
       {/* Horizontal Scroll Slider */}
       <div
         ref={scrollRef}
-        className="flex gap-4 sm:gap-6 overflow-x-auto scroll-smooth px-4 sm:px-6 lg:px-10 pb-4 no-scrollbar"
+        className="flex gap-4 sm:gap-6 overflow-x-auto scroll-smooth px-4 sm:px-6 lg:px-10 pb-4 hide-scrollbar"
       >
         {hotels?.map((item, index) => (
           <div

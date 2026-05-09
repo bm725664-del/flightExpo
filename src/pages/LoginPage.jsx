@@ -35,7 +35,7 @@ const LoginPage = () => {
           {/* Branding */}
           <div className="relative z-10 flex items-center gap-stack-sm">
             <span className="font-display-xl text-h3 text-white tracking-tighter">
-              LUXE TRAVEL
+              Flight Expo
             </span>
           </div>
         </section>
@@ -45,7 +45,7 @@ const LoginPage = () => {
           {/* Top Header */}
           <header className="absolute top-8 left-0 right-0 px-margin-desktop flex justify-center lg:justify-start">
             <div className="font-display-xl text-h3 text-primary tracking-tighter">
-              LUXE TRAVEL
+              Flight Expo
             </div>
           </header>
 
@@ -196,7 +196,7 @@ const LoginPage = () => {
           {/* Footer */}
           <footer className="absolute bottom-8 left-0 right-0 px-margin-desktop flex justify-center">
             <p className="font-label-sm text-outline-variant">
-              © 2024 Luxe Travel Global. All rights reserved.
+              © 2024 Flight Expo Global. All rights reserved.
             </p>
           </footer>
         </section>

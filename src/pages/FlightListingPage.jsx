@@ -3,10 +3,12 @@ import FlightFiltersSidebar from "../components/flights/section/FlightFiltersSid
 import FlightResultsSection from "../components/flights/section/FlightResultsSection";
 
 import MainLayout from "../layouts/MainLayout";
+import HomeBannerSection from "../components/flights/section/HomeBannerSection";
 
 export default function FlightsPage() {
   return (
     <MainLayout>
+      <HomeBannerSection />
       <main className="pt-24 sm:pt-28 pb-12 sm:pb-16 lg:pb-24">
         <div className="max-w-container-max mx-auto px-4 sm:px-6 lg:px-10">
           {/* Search Summary */}

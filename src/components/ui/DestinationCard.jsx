@@ -1,6 +1,6 @@
 import { ArrowRight } from "lucide-react";
 import { NavLink } from "react-router-dom";
-const DestinationCard = ({ cardImage, country, title, description }) => {
+const DestinationCard = ({ cardImage, country, title, description, href }) => {
   return (
     <div
       className="
@@ -30,6 +30,7 @@ const DestinationCard = ({ cardImage, country, title, description }) => {
           w-full
           h-full
           object-cover
+          rounded-3xl
           transition-transform
           duration-700
           group-hover:scale-110
@@ -41,6 +42,7 @@ const DestinationCard = ({ cardImage, country, title, description }) => {
         className="
           absolute
           inset-0
+          rounded-3xl
           bg-gradient-to-t
           from-black/90
           via-black/20
@@ -109,7 +111,7 @@ const DestinationCard = ({ cardImage, country, title, description }) => {
 
           {/* Arrow Button */}
           <NavLink
-            to="/flight/listing"
+            to={href}
             className="
               flex-shrink-0
               w-11
@@ -149,6 +151,7 @@ const DestinationCard = ({ cardImage, country, title, description }) => {
         className="
           absolute
           inset-0
+          rounded-3xl
           opacity-0
           group-hover:opacity-100
           transition-opacity
