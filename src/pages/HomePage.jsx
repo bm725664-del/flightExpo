@@ -7,6 +7,7 @@ import HotelSection from "../components/hotels/section/HotelSection";
 import CruiseSection from "../components/cruises/CruiseSection";
 import DestinationData from "../data/HomePageDestinationCardData";
 import BookingWidget from "../components/booking/BookingWidget";
+import TestimonialsSection from "../components/testimonials/TestimonialsSection";
 export default function Home() {
   return (
     <MainLayout>
@@ -25,6 +26,7 @@ export default function Home() {
       <CruiseSection />
       <HotelSection />
       <FlightDealsSection />
+      <TestimonialsSection />
     </MainLayout>
   );
 }
