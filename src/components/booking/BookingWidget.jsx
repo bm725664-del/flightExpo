@@ -3,6 +3,9 @@
 import { useMemo, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Popover, Transition, Listbox } from "@headlessui/react";
+import { Calendar } from "primereact/calendar";
+import "primereact/resources/themes/lara-light-blue/theme.css";
+import "primereact/resources/primereact.min.css";
 import {
   ArrowLeftRight,
   CalendarDays,
@@ -86,34 +89,15 @@ export default function ModernFlightSearch() {
   };
 
   return (
-    <section className="relative w-full py-12 sm:py-16 lg:py-24 bg-gray-50 min-h-screen">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="text-center mb-8 sm:mb-12"
-        >
-          <p className="text-blue-600 uppercase tracking-[0.25em] text-xs sm:text-sm font-semibold mb-4">
-            Luxury Flight Booking
-          </p>
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight mb-4">
-            Search to unlock the
-            <span className="text-blue-600 block mt-2">Cheapest Deals</span>
-          </h1>
-          <p className="text-sm sm:text-base lg:text-lg text-gray-500 max-w-2xl mx-auto leading-relaxed">
-            Compare premium fares from top global airlines with real-time
-            pricing and exclusive luxury travel offers.
-          </p>
-        </motion.div>
-
+    <section className="relative w-full py-8 sm:py-12 lg:py-18">
+      <div className="max-w-screen-xl mx-auto ">
         {/* Trip Type Selector */}
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
-          className="flex justify-center mb-6 sm:mb-8"
+          className="flex justify-start"
         >
-          <div className="flex flex-wrap items-center gap-2 rounded-2xl bg-white border border-gray-200 p-2 shadow-sm">
+          <div className="flex flex-wrap rounded-t-xl items-center gap-2 bg-white border border-gray-200 p-2 shadow-sm">
             {tripOptions.map((item) => (
               <button
                 key={item.value}
@@ -144,11 +128,11 @@ export default function ModernFlightSearch() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
           onSubmit={handleSearch}
-          className="bg-white rounded-[28px] border border-gray-100 shadow-2xl overflow-visible"
+          className="rounded-tr-xl rounded-b-xl   border border-gray-100 shadow-2xl overflow-visible bg-white"
         >
-          <div className="grid grid-cols-1 xl:grid-cols-12 relative">
+          <div className="flex flex-col xl:flex-row relative ">
             {/* FROM */}
-            <div className="xl:col-span-3 border-b xl:border-b-0 xl:border-r border-gray-100 relative p-5 sm:p-6 hover:bg-gray-50 transition-colors">
+            <div className="flex-1 basis-1/4 border-b xl:border-b-0 xl:border-r border-gray-100 relative p-5 sm:p-6 hover:bg-gray-50 transition-colors">
               <div className="flex items-start gap-4">
                 <div className="w-12 h-12 rounded-2xl bg-blue-50 flex items-center justify-center shrink-0">
                   <PlaneTakeoff size={22} className="text-blue-600" />
@@ -178,7 +162,7 @@ export default function ModernFlightSearch() {
             </div>
 
             {/* TO */}
-            <div className="border-t border-b xl:border-b-0 xl:border-r border-gray-100 p-5 sm:p-6 hover:bg-gray-50 transition-colors">
+            <div className="flex-1 basis-1/4 border-t border-b xl:border-b-0 xl:border-r border-gray-100 p-5 sm:p-6 hover:bg-gray-50 transition-colors">
               <div className="flex items-start gap-4">
                 <div className="w-12 h-12 rounded-2xl bg-blue-50 flex items-center justify-center shrink-0">
                   <PlaneLanding size={22} className="text-blue-600" />
@@ -199,8 +183,8 @@ export default function ModernFlightSearch() {
             </div>
 
             {/* DATES */}
-            <div className="xl:col-span-4 grid grid-cols-1 sm:grid-cols-2 border-b xl:border-b-0 xl:border-r border-gray-100">
-              <div className="border-b sm:border-b-0 sm:border-r border-gray-100 p-5 sm:p-6 hover:bg-gray-50 transition-colors">
+            <div className="flex-1 basis-1/3 flex flex-col sm:flex-row border-b xl:border-b-0 xl:border-r border-gray-100">
+              <div className="flex-1 basis-1/2 border-b sm:border-b-0 sm:border-r border-gray-100 p-5 sm:p-6 hover:bg-gray-50 transition-colors">
                 <div className="flex items-start gap-4">
                   <div className="w-12 h-12 rounded-2xl bg-blue-50 flex items-center justify-center shrink-0">
                     <CalendarDays size={22} className="text-blue-600" />
@@ -209,13 +193,17 @@ export default function ModernFlightSearch() {
                     <p className="text-[10px] uppercase tracking-[0.2em] font-bold text-gray-400 mb-2">
                       Departure
                     </p>
-                    <input
-                      type="date"
+                    <Calendar
                       value={formData.departureDate}
                       onChange={(e) =>
-                        handleInputChange("departureDate", e.target.value)
+                        handleInputChange("departureDate", e.value)
                       }
-                      className="w-full bg-transparent text-sm sm:text-base font-semibold text-gray-900 outline-none cursor-pointer"
+                      dateFormat="dd/mm/yy"
+                      placeholder="Select departure"
+                      showIcon={false}
+                      inline={false}
+                      className="w-full date-picker-custom"
+                      inputClassName="bg-transparent text-sm sm:text-base font-semibold text-gray-900 outline-none cursor-pointer w-full"
                     />
                   </div>
                 </div>
@@ -227,7 +215,7 @@ export default function ModernFlightSearch() {
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0, scale: 0.95 }}
-                    className="p-5 sm:p-6 hover:bg-gray-50 transition-colors"
+                    className="flex-1 basis-1/2 p-5 sm:p-6 hover:bg-gray-50 transition-colors"
                   >
                     <div className="flex items-start gap-4">
                       <div className="w-12 h-12 rounded-2xl bg-blue-50 flex items-center justify-center shrink-0">
@@ -237,13 +225,17 @@ export default function ModernFlightSearch() {
                         <p className="text-[10px] uppercase tracking-[0.2em] font-bold text-gray-400 mb-2">
                           Return
                         </p>
-                        <input
-                          type="date"
+                        <Calendar
                           value={formData.returnDate}
                           onChange={(e) =>
-                            handleInputChange("returnDate", e.target.value)
+                            handleInputChange("returnDate", e.value)
                           }
-                          className="w-full bg-transparent text-sm sm:text-base font-semibold text-gray-900 outline-none cursor-pointer"
+                          dateFormat="dd/mm/yy"
+                          placeholder="Select return"
+                          showIcon={false}
+                          inline={false}
+                          className="w-full date-picker-custom"
+                          inputClassName="bg-transparent text-sm sm:text-base font-semibold text-gray-900 outline-none cursor-pointer w-full"
                         />
                       </div>
                     </div>
@@ -253,7 +245,7 @@ export default function ModernFlightSearch() {
             </div>
 
             {/* TRAVELERS & CABIN POPOVER */}
-            <div className="xl:col-span-2 relative">
+            <div className="flex-1 basis-1/5 relative">
               <Popover className="relative h-full">
                 {({ open }) => (
                   <>

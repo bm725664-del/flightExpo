@@ -6,8 +6,6 @@ export default function BookingSidebar() {
 
   const [travelers, setTravelers] = useState(2);
 
-  const [departureDate, setDepartureDate] = useState("2026-07-18");
-
   const [insuranceEnabled, setInsuranceEnabled] = useState(true);
 
   const cruisePrice = 4200;
@@ -47,8 +45,7 @@ export default function BookingSidebar() {
         </div>
 
         {/* Form */}
-        <div className="p-8 space-y-6">
-          {/* Departure */}
+        {/* <div className="p-8 space-y-6">
           <div>
             <label className="block text-label-sm uppercase tracking-widest font-bold mb-3 text-on-surface-variant">
               Departure Date
@@ -62,7 +59,6 @@ export default function BookingSidebar() {
             />
           </div>
 
-          {/* Travelers */}
           <div>
             <label className="block text-label-sm uppercase tracking-widest font-bold mb-3 text-on-surface-variant">
               Travelers
@@ -87,7 +83,6 @@ export default function BookingSidebar() {
             </div>
           </div>
 
-          {/* Suite Selection */}
           <div>
             <label className="block text-label-sm uppercase tracking-widest font-bold mb-3 text-on-surface-variant">
               Suite Selection
@@ -131,36 +126,7 @@ export default function BookingSidebar() {
               })}
             </div>
           </div>
-
-          {/* Insurance */}
-          <div className="rounded-2xl border border-outline-variant/20 p-5 bg-surface">
-            <div className="flex items-start justify-between gap-4">
-              <div>
-                <h4 className="font-bold text-on-surface mb-1">
-                  Premium Protection
-                </h4>
-
-                <p className="text-label-sm text-on-surface-variant leading-relaxed">
-                  Includes cancellation coverage, medical assistance, and
-                  priority support.
-                </p>
-              </div>
-
-              <button
-                onClick={() => setInsuranceEnabled(!insuranceEnabled)}
-                className={`w-14 h-8 rounded-full relative transition-all ${
-                  insuranceEnabled ? "bg-primary" : "bg-outline-variant"
-                }`}
-              >
-                <span
-                  className={`absolute top-1 w-6 h-6 rounded-full bg-white transition-all ${
-                    insuranceEnabled ? "left-7" : "left-1"
-                  }`}
-                />
-              </button>
-            </div>
-          </div>
-        </div>
+        </div> */}
 
         {/* Pricing */}
         <div className="border-t border-outline-variant/10 p-8 bg-surface">
@@ -178,15 +144,6 @@ export default function BookingSidebar() {
 
               <span>£{(suiteUpgrade * travelers).toLocaleString()}</span>
             </div>
-
-            {/* Insurance */}
-            {insuranceEnabled && (
-              <div className="flex justify-between text-on-surface-variant">
-                <span>Protection Plan</span>
-
-                <span>£{insuranceFee.toLocaleString()}</span>
-              </div>
-            )}
 
             {/* Divider */}
             <div className="border-t border-outline-variant/10 pt-4 flex justify-between items-end">
@@ -208,7 +165,7 @@ export default function BookingSidebar() {
 
           {/* CTA */}
           <button className="w-full mt-8 bg-primary text-white py-5 rounded-2xl font-bold text-body-lg shadow-[0_10px_30px_rgba(0,74,198,0.3)] hover:scale-[1.02] hover:bg-primary/90 transition-all duration-300">
-            Reserve Suite
+            Contact US fo Booking
           </button>
 
           {/* Trust Indicators */}

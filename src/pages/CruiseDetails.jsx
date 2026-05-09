@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import HeroSection from "../components/cruises/HeroSection";
 import MainLayout from "../layouts/MainLayout";
 import OverviewSection from "../components/cruises/OverviewSection";
@@ -6,6 +7,10 @@ import AmenitiesSection from "../components/cruises/AmenitiesSection";
 import SuiteSelectionSection from "../components/cruises/SuiteSelectionSection";
 import BookingSidebar from "../components/cruises/BookingSidebar";
 const CruiseDetails = () => {
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+  }, []);
+
   return (
     <MainLayout>
       <HeroSection />

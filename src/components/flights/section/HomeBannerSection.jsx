@@ -1,14 +1,14 @@
 import { motion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 
-const HeroSection = ({
+const HomeBannerSection = ({
   title = "Experience Luxury Beyond The Clouds",
   subtitle = "Private jets, premium destinations, and world-class travel experiences crafted for elite travelers.",
   bgImage = "",
   BannerForm,
 }) => {
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-black">
+    <section className="relative min-h-[60vh] flex items-center justify-center overflow-hidden bg-black">
       {/* Background Image */}
       <div className="absolute inset-0 z-0">
         <img
@@ -30,16 +30,16 @@ const HeroSection = ({
           initial={{ opacity: 0, y: 60 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, ease: "easeOut" }}
-          className="space-y-4"
+          className="space-y-8"
         >
           {/* Heading */}
           <motion.h1
             initial={{ opacity: 0, y: 25 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, delay: 0.2 }}
-            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold leading-[0.95] tracking-tight text-white"
+            className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-extrabold leading-[0.95] tracking-tight text-white"
           >
-            <span className="block mt-4">{title}</span>
+            <span className="block mt-3">{title}</span>
           </motion.h1>
 
           {/* Subtitle */}
@@ -47,7 +47,7 @@ const HeroSection = ({
             initial={{ opacity: 0, y: 25 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, delay: 0.35 }}
-            className="max-w-3xl mx-auto text-sm sm:text-md md:text-lg text-gray-200 leading-relaxed font-light"
+            className="max-w-3xl mx-auto text-lg sm:text-xl md:text-2xl text-gray-200 leading-relaxed font-light"
           >
             {subtitle}
           </motion.p>
@@ -83,4 +83,4 @@ const HeroSection = ({
   );
 };
 
-export default HeroSection;
+export default HomeBannerSection;
