@@ -5,7 +5,7 @@ import FlightPromoBanner from "./FlightPromoBanner";
 import FlightCardSkeleton from "../../ui/FlightCardSkeleton";
 import React from "react";
 import FlightCardStop from "../FlightCard3";
-import EmiratesFlightCard from "../EmiratesFlightCard";
+import EmiratesFlightCard from "../TwoWayFlightCard";
 
 export default function FlightResultsSection() {
   const [showSkeleton, setShowSkeleton] = React.useState(true);

@@ -4,9 +4,8 @@ function App() {
   return (
     <>
       <PrimeReactProvider>
-        <AppRoutes />;
+        <AppRoutes />
       </PrimeReactProvider>
-      ;
     </>
   );
 }
