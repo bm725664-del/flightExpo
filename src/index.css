@@ -77,6 +77,13 @@ html {
   );
 }
 
+input:focus,
+select:focus {
+  outline: none;
+  border-color: #004ac6 !important;
+  box-shadow: 0 0 0 2px rgba(0, 74, 198, 0.1);
+}
+
 @keyframes shimmer {
   0% {
     background-position: 200% 0;

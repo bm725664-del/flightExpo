@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 
 const navLinks = [
   { name: "Home", path: "/" },
@@ -11,6 +11,9 @@ const navLinks = [
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  // check if current route is not home
+  const location = useLocation();
+  const hasActivePage = location.pathname === "/flight/details";
 
   useEffect(() => {
     const handleScroll = () => {
@@ -21,12 +24,12 @@ export default function Navbar() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-
-  const iconTextColor = scrolled ? "text-on-surface-variant" : "text-white";
-  const linkInactive = scrolled
+  const navbarSolid = scrolled || hasActivePage;
+  const iconTextColor = navbarSolid ? "text-on-surface-variant" : "text-white";
+  const linkInactive = navbarSolid
     ? "text-on-background hover:text-primary"
     : "text-white hover:text-primary";
-  const containerClasses = scrolled
+  const containerClasses = navbarSolid
     ? "bg-white/95 shadow-sm shadow-on-background/5"
     : "bg-transparent shadow-none";
 
@@ -40,7 +43,7 @@ export default function Navbar() {
           {/* Logo */}
           <NavLink
             to="/"
-            className={`font-display-xl text-h3 tracking-tighter transition-colors ${scrolled ? "text-on-background" : "text-white"}`}
+            className={`font-display-xl text-h3 tracking-tighter transition-colors ${navbarSolid ? "text-on-background" : "text-white"}`}
           >
             FlightExpo
           </NavLink>
@@ -94,21 +97,21 @@ export default function Navbar() {
             <span
               className={`absolute w-6 h-[2px] transition-all duration-300 ${
                 mobileMenuOpen ? "rotate-45" : "-translate-y-2"
-              } ${scrolled ? "bg-on-background" : "bg-white"}`}
+              } ${navbarSolid ? "bg-on-background" : "bg-white"}`}
             />
 
             {/* Middle Line */}
             <span
               className={`absolute w-6 h-[2px] transition-all duration-300 ${
                 mobileMenuOpen ? "opacity-0" : "opacity-100"
-              } ${scrolled ? "bg-on-background" : "bg-white"}`}
+              } ${navbarSolid ? "bg-on-background" : "bg-white"}`}
             />
 
             {/* Bottom Line */}
             <span
               className={`absolute w-6 h-[2px] transition-all duration-300 ${
                 mobileMenuOpen ? "-rotate-45" : "translate-y-2"
-              } ${scrolled ? "bg-on-background" : "bg-white"}`}
+              } ${navbarSolid ? "bg-on-background" : "bg-white"}`}
             />
           </button>
         </div>

@@ -84,9 +84,25 @@ export default function FlightCardStop() {
 
           {/* Flight Path */}
           <div className="px-3 text-center">
-            <p className="mb-4 text-sm font-semibold text-neutral-500">
-              16h 20m
-            </p>
+            <div className="flex justify-center items-center  flex-col gap-1">
+              {/* Stop Badge */}
+              <span
+                className="
+                inline-flex items-center rounded-full
+                bg-amber-500/10
+                text-[10px] font-bold uppercase
+                tracking-[0.2em]
+                px-4 py-1
+                text-amber-600
+              "
+              >
+                1 Stop
+              </span>
+              <span className="w-[20px] bg-black/50 h-[1px]"></span>
+              <p className="mb-4 text-sm font-semibold text-neutral-500">
+                16h 20m
+              </p>
+            </div>
 
             <div className="mb-3 flex items-center gap-2">
               <div className="h-[2px] flex-1 bg-primary/30"></div>
@@ -119,18 +135,7 @@ export default function FlightCardStop() {
             </div>
 
             {/* Stop Badge */}
-            <span
-              className="
-                inline-flex items-center rounded-full
-                bg-amber-500/10
-                px-3 py-1
-                text-[10px] font-bold uppercase
-                tracking-[0.2em]
-                text-amber-600
-              "
-            >
-              1 Stop (DXB)
-            </span>
+            <p className="mt-1 text-sm font-bold text-neutral-500">DTW</p>
           </div>
 
           {/* Arrival */}

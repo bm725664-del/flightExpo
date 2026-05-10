@@ -9,13 +9,12 @@ import DestinationData from "../data/HomePageDestinationCardData";
 import BookingWidget from "../components/booking/BookingWidget";
 import TestimonialsSection from "../components/testimonials/TestimonialsSection";
 import NewLetterSection from "../components/ui/NewLetterSection";
+import bannerImage from "../assets/imaage/banner.png";
 export default function Home() {
   return (
     <MainLayout>
       <HeroSection
-        bgImage={
-          "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?q=80&w=2074&auto=format&fit=crop"
-        }
+        bgImage={bannerImage}
         BannerForm={<BookingWidget />}
         title={"Redefined Elegance"}
         subtitle={

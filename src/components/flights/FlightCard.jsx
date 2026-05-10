@@ -1,4 +1,5 @@
 import { Plane, CheckCircle2, Armchair, ArrowRight } from "lucide-react";
+import { NavLink } from "react-router-dom";
 
 export default function FlightCard() {
   return (
@@ -215,7 +216,8 @@ export default function FlightCard() {
         </div>
 
         {/* CTA */}
-        <button
+        <NavLink
+          to="/flight/details"
           className="
             inline-flex items-center gap-2
             text-xs font-bold text-primary
@@ -224,7 +226,7 @@ export default function FlightCard() {
         >
           Flight Details
           <ArrowRight size={14} />
-        </button>
+        </NavLink>
       </div>
     </article>
   );

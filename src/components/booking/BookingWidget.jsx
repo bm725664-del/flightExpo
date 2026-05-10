@@ -281,7 +281,10 @@ export default function ModernFlightSearch() {
                       leaveFrom="opacity-100 translate-y-0"
                       leaveTo="opacity-0 translate-y-1"
                     >
-                      <Popover.Panel className="absolute right-0 z-999 mt-3 w-[600px] rounded-3xl border border-gray-200 bg-white shadow-[0_20px_60px_rgba(0,0,0,0.12)]">
+                      <Popover.Panel
+                        className="absolute right-0 z-999999 mt-3 w-[600px] rounded-3xl border border-gray-200 bg-white shadow-[0_20px_60px_rgba(0,0,0,0.12)]"
+                        style={{ zIndex: 99999 }}
+                      >
                         <div className="flex">
                           {/* Passenger Section */}
                           <div className="flex-1 p-5">
